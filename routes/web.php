@@ -18,8 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
-    return view('authRegister');
-});
+Route::get('/register',[RegisterController::class,'show']);
 Route::post('/register',[RegisterController::class,'Register']);
 

@@ -10,7 +10,7 @@ class RegisterController extends Controller
     
     public function show(){
 
-        return view('auth.register');
+        return view('authRegister');
 
     }
 
@@ -18,6 +18,8 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request){
 
         $user=User::create($request->validated());
+
+        return redirect('/login')->with('success','Account create succesfully');
 
     }
 
