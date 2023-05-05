@@ -5,6 +5,9 @@ use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Validation\ValidationException;
+
+
 class RegisterController extends Controller
 {
     
@@ -14,15 +17,21 @@ class RegisterController extends Controller
 
     }
 
-
     public function register(RegisterRequest $request){
 
-        $user=User::create($request->validated());
-
-        return redirect('/login')->with('success','Account create succesfully');
-
+        try {
+            $user = User::create($request->validated());
+        } catch (ValidationException $e) {
+            return redirect('/invalid')->with('error', 'Failed to validate user data');
+        }
+    
+        if ($user) {
+            return redirect('/login')->with('success', 'Account created successfully');
+        } else {
+            return redirect('/register')->with('error', 'Failed to create account');
+        }
     }
-
+    
 
 
 }
