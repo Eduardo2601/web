@@ -33,3 +33,5 @@ Route::post('/login',[LoginController::class,'login']);
 
 
 Route::get('/home',[HomeController::class,'show']);
+
+Route::get('/logout',[LogoutController::class,'logout']);
