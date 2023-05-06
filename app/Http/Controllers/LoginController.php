@@ -14,6 +14,9 @@ public function show(){
     return view('auth.login');
 }
 
+
+
+
 public function login(loginRequest $request ){
 $credentials=$request->getCredentials();
 if(!Auth::validate($credentials)){
@@ -22,13 +25,17 @@ if(!Auth::validate($credentials)){
 return redirect()->to('/login')->withErrors('Auth.failed');
 
 }
-
 $user= Auth::getProvider()->retrieveByCredentials($credentials);
 Auth::login($user);
-
 return $this->authenticated($request,$user);
 
-return redirect('/home');
+}
+public function authenticated(Request $request, $user){
+    return redirect('/home');
 }
 
 }
+
+
+ 
+
